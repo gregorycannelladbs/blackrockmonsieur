@@ -1,0 +1,45 @@
+* {
+    margin: 0; padding: 0;
+}
+
+nav {
+    background-color: black;
+    /*border: 1px solid #000000;*/
+    position: sticky;
+    width: 100%;
+    top: 0;
+    height: 64px;
+    margin-bottom: 20px;
+    z-index: 1;
+    text-align: center;
+}
+
+nav h1 {
+    /*border: 1px solid pink;*/
+    display: inline-block;
+    color: white;
+    padding-top: 16px;
+}
+
+#searchBar {
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    position: sticky;
+    top:84px;
+}
+
+table {
+    height: 40px;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 16px;
+}
+
+#search {
+    height: 30px;
+    width: 100%;
+    padding-left: 10px;
+}

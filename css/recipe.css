@@ -1,0 +1,145 @@
+* {
+    margin: 0; padding: 0;
+}
+
+a:link { text-decoration: none; }
+
+html{
+    font-size: 100%;
+}
+
+#modifiedNumberOfPeople {
+    cursor: pointer;
+}
+
+body{
+    font-size: 1rem;
+}
+
+table, th, td{border: 1px outset; overflow-x: auto;}
+
+th, td{padding: 10px;}
+
+main{
+    /*border: 1px solid black;*/
+    display: flex;
+    flex-direction: column;
+}
+
+.header{
+    /*border: 1px solid pink;*/
+    text-align: center;
+}
+
+.header h1{
+    margin-top: 15px;
+}
+
+.image{
+    /*border: 1px solid green;*/
+    margin-top: 30px;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+
+img{
+    /*border: 1px solid pink;*/
+    max-height: 500px;
+}
+
+h2{
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.ingredients{
+    /*border: 1px solid green;*/
+    display: flex;
+    /*align-content: center;*/
+    /*justify-content: center;*/
+    flex-direction: column;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.instructions{
+    /*border: 1px solid green;*/
+    display: flex;
+    /*align-content: center;*/
+    /*justify-content: center;*/
+    flex-direction: column;
+    margin-top: 30px;
+}
+
+.instructions td:first-child {
+    text-align: center;
+}
+
+@media screen and (min-width: 1114px){
+    main{
+        /*border: 1px solid blue;*/
+        display: grid;
+        grid-template-columns: auto auto;
+        grid-template-rows: auto auto auto;
+        grid-template-areas: "row1 row1"
+                                "row2 row2"
+                                "ingredients instructions";
+        max-width: 1000px;
+        margin: 0px auto;
+    }
+
+    .header{
+        grid-area: row1;
+    }
+
+    .image{
+        grid-area: row2;
+    }
+
+    img{
+        max-width: 100%;
+    }
+
+    .ingredients{
+        /*border: 1px solid blue;*/
+        grid-area: ingredients;
+        justify-self: center;
+    }
+    .instructions{
+        /*border: 1px solid blue;*/
+        grid-area: instructions;
+        justify-self: center;
+        margin-left: 50px;
+    }
+
+    .instructions td:first-child {
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 1114px){
+    img{
+    max-width: 100%;
+    max-height: 100%;
+    /*display: block;  remove extra space below image*/
+    }
+}
+
+@media screen and (max-width: 330px) {
+    th, td{
+        padding: 5px;
+    }
+}
+
+@media screen and (max-width: 300px) {
+    th, td{
+        padding: 3px;
+    }
+}
+
+@media screen and (max-width: 288px) {
+    th, td{
+        padding: 1px;
+    }
+}

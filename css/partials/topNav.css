@@ -1,0 +1,21 @@
+* {
+    margin: 0; padding: 0;
+}
+
+nav{
+    background-color: black;
+    /*border: 1px solid #000000;*/
+    position: sticky;
+    width: 100%;
+    top: 0;
+    height: 64px;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+nav h1 {
+    /*border: 1px solid pink;*/
+    display: inline-block;
+    color: white;
+    padding-top: 16px;
+}
