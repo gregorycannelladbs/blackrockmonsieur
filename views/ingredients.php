@@ -1,6 +1,7 @@
 <?php
-    include('connect_db.php');
-    $result = $conn->query("SELECT * FROM ingredients ORDER BY ingredient");
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
 ?>
 
 <!DOCTYPE html>
@@ -14,25 +15,15 @@
 
     <body>
         <h1>Formulaire d'ajout de nouveaux ingrédients</h1>
-        <form name = 'insert_ingredient' action='ingredients.php' method='post'>
+        <form name = 'insert_ingredient' action='/ingredients' method='post'>
             <label for='ingredient'>Nouvel ingrédient:</label><br>
             <input type='text' id='ingredient' name='ingredient'><br>
             <input type='submit' value='Ajouter'>
         </form>
         <?php
-            if ($_POST) {
-                // Execute code (such as database updates) here.
-                $new_ingredient = $_POST['ingredient'];
-                $conn->query("INSERT INTO ingredients (ingredient) VALUES('$new_ingredient')");
-                
-                // Redirect to this page.
-                header("Location:ingredients.php");
-                //exit();
-             }
-
             echo "<h1>Liste des ingrédients enregistrés dans la base de données</h1>";
             
-            if ($result->num_rows > 0) {
+            if ($ingredientsTable->num_rows > 0) {
                 echo "
                     <table>
                         <thead>
@@ -43,7 +34,7 @@
                         </thead>";
                 echo "  <tbody>";
                 // output data of each row
-                while($row = $result->fetch_assoc()) {
+                while($row = $ingredientsTable->fetch_assoc()) {
                   echo "
                             <tr>
                                 <td>".$row["ingredient_id"]."</td>
@@ -55,7 +46,6 @@
               } else {
                 echo "0 results";
               }
-            $conn->close(); 
         ?>
     </body>
 </html>

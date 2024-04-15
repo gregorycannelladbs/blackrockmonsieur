@@ -33,7 +33,7 @@
                 $i = 0;
                 echo"
                 <form method='post' id='shoppingList' action='/shoppingList'></form>";
-                foreach($recipes as $row) {
+                foreach($recipesTable as $row) {
                     $recipeId = $row['recipe_id'];
                     $recipe = $row['recipe'];
                     $type = $row['type'];

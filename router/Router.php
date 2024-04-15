@@ -23,6 +23,16 @@ class Router{
         
         if ($path == '/savedShoppingList') return Controller::savedShoppingListController();
 
+        if ($path == '/ingredients') return Controller::ingredientsController();
+
+        if ($path == '/recipes') return Controller::recipesController();
+
+        if ($path == '/recipeDetails') return Controller::recipeDetailsController();
+
+        if ($path == '/units') return Controller::unitsController();
+
+        if ($path == '/instructions') return Controller::instructionsController();
+
         return Controller::indexController();
     }
 }

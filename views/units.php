@@ -1,6 +1,7 @@
 <?php
-    include('connect_db.php');
-    $result = $conn->query("SELECT * FROM units ORDER BY unit");
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
 ?>
 
 <!DOCTYPE html>
@@ -14,7 +15,7 @@
 
     <body>
         <h1>Formulaire d'ajout de nouvelles unités</h1>
-        <form name = 'insert_unit' action='units.php' method='post'>
+        <form name = 'insert_unit' action='/units' method='post'>
             <label for='unit'>Nouvelle unité:</label>
             <input type='text' id='unit' name='unit'><br>
             <label for='unit'>Description</label>
@@ -22,24 +23,9 @@
             <input type='submit' value='Ajouter'>
         </form>
         <?php    
-            if ($_POST) {
-                // Execute code (such as database updates) here.
-                $unit = $_POST['unit'];
-                $description = $_POST['description'];
-
-                $conn->query(
-                    "INSERT INTO units (unit, description) 
-                    VALUES('$unit', '$description')"
-                );
-                
-                // Redirect to this page.
-                header("Location:units.php");
-                //exit();
-             } 
-
             echo "<h1>Liste des unités enregistrées dans la base de données</h1>";
             
-            if ($result->num_rows > 0) {
+            if ($unitsTable->num_rows > 0) {
                 echo "
                     <table>
                         <thead>
@@ -51,7 +37,7 @@
                         </thead>";
                 echo "  <tbody>";
                 // output data of each row
-                while($row = $result->fetch_assoc()) {
+                while($row = $unitsTable->fetch_assoc()) {
                   echo "
                             <tr>
                                 <td>".$row["unit_id"]."</td>
@@ -64,7 +50,6 @@
               } else {
                 echo "0 results";
               }
-            $conn->close(); 
         ?>
     </body>
 </html>

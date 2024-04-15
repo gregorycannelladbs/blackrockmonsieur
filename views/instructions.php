@@ -1,16 +1,7 @@
 <?php
-    include('connect_db.php');
-    
-    $recipes = $conn->query("select recipe_id, recipe from recipes");
-    
-    $result = $conn->query(
-        "SELECT * 
-            
-        FROM instructions AS a
-        INNER JOIN recipes AS b ON a.recipe_id = b.recipe_id
-
-        ORDER BY recipe, instruction_id"
-    );
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
 ?>
 
 <!DOCTYPE html>
@@ -24,11 +15,11 @@
 
     <body>
         <h1>Formulaire d'ajout des instructions de recette</h1>
-        <form name = 'insert_instruction' action='instructions.php' method='post'>
+        <form name = 'insert_instruction' action='/instructions' method='post'>
             <label for='recipe_id'>Recette: </label>
             <select name='recipe_id'>
                 <?php
-                    while ($row = $recipes->fetch_assoc()) {
+                    while ($row = $recipesTable->fetch_assoc()) {
                         echo "<option value='" . $row['recipe_id'] . "'>" . $row['recipe'] . "</option>";
                     }
                 ?>
@@ -40,25 +31,9 @@
             <input type='submit' value='Ajouter'>
         </form>
         <?php
-            if ($_POST) {
-                // Execute code (such as database updates) here.
-                $recipe_id = (int) $_POST['recipe_id'];
-                $instruction_id = (int) $_POST['instruction_id'];
-                $instruction = $_POST['instruction'];
-
-                $conn->query(
-                    "INSERT INTO instructions (recipe_id, instruction_id, instruction) 
-                    VALUES('$recipe_id', '$instruction_id', '$instruction')"
-                );
-                
-                // Redirect to this page.
-                header("Location:instructions.php");
-                //exit();
-             }
-
             echo "<h1>Liste des recettes enregistrées dans la base de données</h1>";
 
-            if ($result->num_rows > 0) {
+            if ($instructionsTable->num_rows > 0) {
                 echo "
                     <table>
                         <thead>
@@ -70,7 +45,7 @@
                         </thead>";
                 echo "  <tbody>";
                 // output data of each row
-                while($row = $result->fetch_assoc()) {
+                while($row = $instructionsTable->fetch_assoc()) {
                   echo "
                             <tr>
                                 <td>".$row["recipe"]."</td>
@@ -84,7 +59,6 @@
               } else {
                 echo "0 results";
               }
-            $conn->close(); 
         ?>
     </body>
 </html>

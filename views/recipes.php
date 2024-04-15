@@ -1,6 +1,7 @@
 <?php
-    include('connect_db.php');
-    $result = $conn->query("SELECT * FROM recipes ORDER BY recipe");
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
 ?>
 
 <!DOCTYPE html>
@@ -14,7 +15,7 @@
 
     <body>
         <h1>Formulaire d'ajout de nouvelles recettes</h1>
-        <form name = 'insert_recipe' action='recipes.php' method='post'>
+        <form name = 'insert_recipe' action='/recipes' method='post'>
             <label for='recipe'>Nouvelle recette:</label>
             <input type='text' id='recipe' name='recipe'><br>
             <label for='recipe'>Nombre de personnes</label>
@@ -38,27 +39,9 @@
             <input type='submit' value='Ajouter'>
         </form>
         <?php
-            if ($_POST) {
-                // Execute code (such as database updates) here.
-                $recipe = $_POST['recipe'];
-                $number_of_people = (int) $_POST['number_of_people'];
-                $type = $_POST['type'];
-                $category = $_POST['category'];
-                $is_number_of_people_modifiable = (int) $_POST['is_number_of_people_modifiable'];
-
-                $conn->query(
-                    "INSERT INTO recipes (recipe, number_of_people, type, category, is_number_of_people_modifiable) 
-                    VALUES('$recipe', '$number_of_people', '$type', '$category', '$is_number_of_people_modifiable')"
-                );
-                
-                // Redirect to this page.
-                header("Location:recipes.php");
-                //exit();
-             } 
-
             echo "<h1>Liste des recettes enregistrées dans la base de données</h1>";
             
-            if ($result->num_rows > 0) {
+            if ($recipesTable->num_rows > 0) {
                 echo "
                     <table>
                         <thead>
@@ -72,7 +55,7 @@
                         </thead>";
                 echo " <tbody>";
                 // output data of each row
-                while($row = $result->fetch_assoc()) {
+                while($row = $recipesTable->fetch_assoc()) {
                 echo "
                             <tr>
                                 <td>".$row['recipe_id']."</td>
@@ -87,7 +70,6 @@
               } else {
                 echo "0 results";
               }
-            $conn->close(); 
         ?>
     </body>
 </html>
