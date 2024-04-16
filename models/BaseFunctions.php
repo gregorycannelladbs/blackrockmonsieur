@@ -131,7 +131,12 @@ class BaseFunctions extends Dbh {
         $sql =         
         "SELECT c.ingredient, 
                 SUM(a.quantity / b.number_of_people * e.modified_number_of_people) AS quantity,
-                d.unit
+                d.unit,
+                CASE
+                    WHEN c.section = 'fruits et légumes' THEN 1
+                    WHEN c.section = 'frais' THEN 2
+                    WHEN c.section = 'sec' THEN 3
+                END AS section_id
                 
         FROM recipe_details AS a
         INNER JOIN recipes AS b ON a.recipe_id = b.recipe_id
@@ -142,7 +147,7 @@ class BaseFunctions extends Dbh {
         WHERE a.recipe_id IN ($recipeIdsString)
         
         GROUP BY c.ingredient, d.unit
-        ORDER BY c.ingredient";
+        ORDER BY section_id, c.ingredient";
 
         $shoppingList = Dbh::connect()->query($sql);
 
