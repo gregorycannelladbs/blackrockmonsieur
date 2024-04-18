@@ -33,6 +33,18 @@ li {
     margin-bottom: 15px;
 }
 
+.undoBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    margin-bottom: 15px;
+}
+
+.undoButton {
+    margin-right: 15px;
+}
+
 #shoppingListTable {
     margin-left: auto;
     margin-right: auto;

@@ -36,7 +36,32 @@ function saveShoppingList() {
     window.location.replace("/savedShoppingList");
 }
 
+function saveState() {
+  var state = [];
+
+  // Retrieve data from the HTML table
+  const table = document.getElementById('shoppingListTable');
+  const rows = table.rows;
+  const data = [];
+  
+  for (let i = 1; i < rows.length; i++) {
+    const cells = rows[i].cells;
+    
+    const rowData = {
+      ingredient: cells[0].innerText,
+      quantity: cells[1].innerText,
+      unit: cells[2].innerText
+    };
+    
+    state.push(rowData);
+  }
+
+  stateStack.push(state);
+}
+
 function deleteRow(r) {
+  saveState();
+
   var index = r.parentNode.parentNode.rowIndex;
   document.querySelector('#shoppingListTable').deleteRow(index);
 
@@ -63,4 +88,50 @@ function insertRow() {
   cell2.innerHTML = "<p contenteditable='true' id= 'quantity'></p>";
   cell3.innerHTML = "<p contenteditable='true' id= 'unit'></p>";
   cell4.innerHTML = "<td><button id='deleteButton' onclick='deleteRow(this)'><span class='material-symbols-outlined'>delete</span></button></td>";
+}
+
+function DeleteRows() {
+  var rowCount = shoppingListTable.rows.length;
+  for (var i = rowCount - 1; i > 0; i--) {
+    shoppingListTable.deleteRow(i);
+  }
+}
+
+function undo() {
+  if(stateStack.length > 0) {
+    DeleteRows();
+
+    var state = stateStack.pop();
+    
+    const tableBody = document.getElementById('tableBody');
+  
+    const deleleteButton = "\
+        <button id='deleteButton' onclick='deleteRow(this)'>\
+            <span class='material-symbols-outlined'>delete</span>\
+        </button>\
+    ";
+  
+    // Iterate over the data and create table rows dynamically
+    state.forEach(
+      rowData => {
+        const row = document.createElement('tr');
+        const ingredientCell = document.createElement('td');
+        const quantityCell = document.createElement('td');
+        const unitCell = document.createElement('td');
+        const deleteButtonCell = document.createElement('td');
+
+        ingredientCell.innerText = rowData.ingredient;
+        quantityCell.innerText = rowData.quantity;
+        unitCell.innerText = rowData.unit;
+        deleteButtonCell.innerHTML = deleleteButton;
+
+        row.appendChild(ingredientCell);
+        row.appendChild(quantityCell);
+        row.appendChild(unitCell);
+        row.appendChild(deleteButtonCell);
+
+        tableBody.appendChild(row);
+      }
+    );
+  }
 }

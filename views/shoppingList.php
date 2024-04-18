@@ -5,6 +5,10 @@
     error_reporting(E_ALL);
 ?>
 
+<script>
+        let stateStack = [];
+</script>
+
 <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -40,6 +44,12 @@
                         <span class="material-symbols-outlined" style="font-size:40px;">save</span>
                     </button>
                 </div>
+                <div class="undoBox">
+                    <button class='undoButton' onclick="undo()">
+                        <span class="material-symbols-outlined">undo</span>  
+                    </button>
+                    <p>Rajouter un article supprimé</p>
+                </div>
                 <table id= 'shoppingListTable'>
                     <thead>
                         <tr>
@@ -52,7 +62,7 @@
                             </th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="tableBody">
                         <?php
                             foreach ($shoppingList as $row) {
                                 echo "
